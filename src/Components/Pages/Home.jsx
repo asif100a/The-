@@ -1,10 +1,15 @@
+import { useContext } from "react";
 import BreakingNews from "../Parts/HomeParts/BreakingNews";
 import Header from "../Shared/Header";
 import LeftSideNav from "../Shared/LeftSideNav";
 import Navber from "../Shared/Navber";
 import RigthSideNav from "../Shared/RigthSideNav";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import AllNews from "../Parts/HomeParts/AllNews";
 
 const Home = () => {
+    const {allNews} = useContext(AuthContext);
+    
     return (
         <div className="poppins">
             <Header />
@@ -14,8 +19,10 @@ const Home = () => {
                 <div className="">
                     <LeftSideNav />
                 </div>
-                <div className="lg:col-span-2">
-                    <h2 className="text-2xl">News comming soon..</h2>
+                <div className="lg:col-span-2 space-y-6">
+                    {
+                        allNews.map(news => <AllNews key={news._id} news={news}></AllNews>)
+                    }
                 </div>
                 <div>
                     <RigthSideNav />
