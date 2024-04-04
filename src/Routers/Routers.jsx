@@ -6,6 +6,7 @@ import AuthProvider from "../Components/AuthProvider/AuthProvider";
 import About from "../Components/Pages/About";
 import Career from "../Components/Pages/Career";
 import Login from "../Components/Pages/Login";
+import Register from "../Components/Pages/Register";
 
 const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login />
+            },
+            {
+                path: '/register',
+                element: <Register />
             }
         ]
     }
