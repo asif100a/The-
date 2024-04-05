@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Header from "../Shared/Header";
 import RigthSideNav from "../Shared/RigthSideNav";
 import { useParams } from "react-router-dom";
+import Navber from "../Shared/Navber";
 
 const NewsDetails = () => {
     const [news, setNews] = useState([]);
@@ -24,6 +25,7 @@ const NewsDetails = () => {
     return (
         <div>
             <Header />
+            <Navber />
             {
                 currentNews ? <div className="grid grid-cols-4">
                     <div className="col-span-3">

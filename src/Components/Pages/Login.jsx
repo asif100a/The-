@@ -2,11 +2,17 @@ import { Link } from "react-router-dom";
 import Navber from "../Shared/Navber";
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const Login = () => {
     const express = "Don't have an account?";
 
     const {loginWithEmailAndPassword} = useContext(AuthContext);
+
+    const location = useLocation();
+    console.log(location);
+
+    const navigate = useNavigate();
 
     const handleLoginForm = (e) => {
         e.preventDefault();
@@ -18,6 +24,8 @@ const Login = () => {
         loginWithEmailAndPassword(email, password)
             .then(res => {
                 console.log(res);
+
+                navigate(location?.state ? location.state : '/')
             })
             .catch(err => {
                 console.error(err);

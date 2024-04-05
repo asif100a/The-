@@ -9,7 +9,7 @@ import AllNews from "../Parts/HomeParts/AllNews";
 
 const Home = () => {
     const {allNews} = useContext(AuthContext);
-    
+
     return (
         <div className="poppins">
             <Header />

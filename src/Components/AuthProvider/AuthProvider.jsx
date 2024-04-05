@@ -9,33 +9,41 @@ const AuthProvider = ({children}) => {
 
     const [allNews, setAllNews] = useState([]);
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    
+    // Create user with email & password
+    const registerWithEmailAndPassword = (email, password) => {
+        setLoading(true);
+        return createUserWithEmailAndPassword(auth, email, password);
+    };
+    
+    // Login with email & password
+    const loginWithEmailAndPassword = (email, password) => {
+        setLoading(true);
+        return signInWithEmailAndPassword(auth, email, password)
+    };
+    
+    // LogOut user
+    const logOut = () => {
+        setLoading(true);
+        return signOut(auth);
+    };
+
 
     useEffect(() => {
+        // setLoading(false)
         fetch('news.json')
             .then(res => res.json())
             .then(data => setAllNews(data));
     }, []);
-
-    // Create user with email & password
-    const registerWithEmailAndPassword = (email, password) => {
-        return createUserWithEmailAndPassword(auth, email, password);
-    };
-
-    // Login with email & password
-    const loginWithEmailAndPassword = (email, password) => {
-        signInWithEmailAndPassword(auth, email, password)
-    };
-
-    // LogOut user
-    const logOut = () => {
-        return signOut(auth);
-    };
 
     // StateChange
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             console.log('current user', currentUser);
             setUser(currentUser);
+            setLoading(false);
         });
 
         return () => {
@@ -49,6 +57,7 @@ const AuthProvider = ({children}) => {
         loginWithEmailAndPassword,
         logOut,
         user,
+        loading,
     };
 
     return (
