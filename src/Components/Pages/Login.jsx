@@ -1,15 +1,27 @@
 import { Link } from "react-router-dom";
 import Navber from "../Shared/Navber";
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Login = () => {
     const express = "Don't have an account?";
+
+    const {loginWithEmailAndPassword} = useContext(AuthContext);
 
     const handleLoginForm = (e) => {
         e.preventDefault();
         console.log(e.currentTarget);
         const form = new FormData(e.currentTarget);
-        console.log(form.get('email', 'password'));
-        console.log(form.get('password'));
+        const email = form.get('email');
+        const password = form.get('password');
+
+        loginWithEmailAndPassword(email, password)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.error(err);
+            });
     };
 
     return (

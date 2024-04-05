@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Register = () => {
+
+    const {registerWithEmailAndPassword} = useContext(AuthContext);
 
     const handleRegisterSubmit = (e) => {
         e.preventDefault();
@@ -11,11 +15,19 @@ const Register = () => {
         const password = form.get('password');
         const repeatPassword = form.get('repeatPassword');
         console.log(name, photo, email, password, repeatPassword);
+
+        registerWithEmailAndPassword(email, password) 
+            .then(res => {
+                console.log(res.user);
+            })
+            .catch(err => {
+                console.error(err);
+            })
     };
 
     return (
-        <div>
-            <h2 className="text-2xl">This is register page</h2>
+        <div className="mt-6">
+            <h2 className="text-3xl font-semibold text-center mb-12">Please register your account</h2>
             <form onSubmit={handleRegisterSubmit} className="max-w-sm mx-auto">
                 <div className="mb-5">
                     <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your name</label>

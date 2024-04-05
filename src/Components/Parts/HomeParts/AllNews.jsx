@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-const AllNews = ({news}) => {
-    const { title, details, image_url, author, rating, total_view, thumbnail_url, category_id } = news;
-    const {name, img, published_date} = author;
+const AllNews = ({ news }) => {
+    const { title, details, image_url, author, rating, total_view, thumbnail_url, category_id, _id } = news;
+    const { name, img, published_date } = author;
 
     const publishedDateParts = published_date?.split(" ")[0];
 
@@ -19,7 +20,14 @@ const AllNews = ({news}) => {
                 <div>
                     <img src={image_url} alt="" className="object-cover w-full mb-4 h-60 sm:h-96 dark:bg-gray-500" />
                     <h2 className="mb-1 text-xl font-semibold">{title}</h2>
-                    <p className="text-sm dark:text-gray-600">{details}</p>
+                    {
+                        details.length > 200 ?
+                            <p className='flex flex-col'>
+                                <span>{details.slice(0, 200)}</span>
+                                <Link to={`/details/${_id}`} className='text-emerald-500 font-semibold'>Read more...</Link>
+                            </p> :
+                            <p>{details}</p>
+                    }
                 </div>
                 <div className="flex flex-wrap justify-between">
                     <div className="space-x-2">
